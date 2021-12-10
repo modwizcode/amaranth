@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Language guide &mdash; nMigen toolchain 0.3.dev275 documentation</title>
+  <title>Language guide &mdash; Amaranth HDL toolchain 0.3.dev276 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
           
 
           
-            <a href="cover.html" class="icon icon-home"> nMigen toolchain
+            <a href="cover.html" class="icon icon-home"> Amaranth HDL toolchain
           
 
           
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.3.dev275+g0b28a97
+                0.3.dev276+g909a3b8
               </div>
             
           
@@ -154,7 +154,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://nmigen.info/nmigen-boards/latest/">Board definitions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://amaranth-lang.org/amaranth-boards/latest/">Board definitions</a></li>
 </ul>
 
             
@@ -170,7 +170,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="cover.html">nMigen toolchain</a>
+          <a href="cover.html">Amaranth HDL toolchain</a>
         
       </nav>
 
@@ -230,31 +230,31 @@
 <p class="admonition-title">Warning</p>
 <p>This guide is a work in progress and is seriously incomplete!</p>
 </div>
-<p>This guide introduces the nMigen language in depth. It assumes familiarity with synchronous digital logic and the Python programming language, but does not require prior experience with any hardware description language. See the <a class="reference internal" href="tutorial.html"><span class="doc">tutorial</span></a> for a step-by-step introduction to the language.</p>
+<p>This guide introduces the Amaranth language in depth. It assumes familiarity with synchronous digital logic and the Python programming language, but does not require prior experience with any hardware description language. See the <a class="reference internal" href="tutorial.html"><span class="doc">tutorial</span></a> for a step-by-step introduction to the language.</p>
 <div class="section" id="the-prelude">
 <span id="lang-prelude"></span><h2>The prelude<a class="headerlink" href="#the-prelude" title="Permalink to this headline">¶</a></h2>
-<p>Because nMigen is a regular Python library, it needs to be imported before use. The root <code class="docutils literal notranslate"><span class="pre">nmigen</span></code> module, called <em>the prelude</em>, is carefully curated to export a small amount of the most essential names, useful in nearly every design. In source files dedicated to nMigen code, it is a good practice to use a <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#tut-pkg-import-star" title="(in Python v3.10)"><span class="xref std std-ref">glob import</span></a> for readability:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nmigen</span> <span class="kn">import</span> <span class="o">*</span>
+<p>Because Amaranth is a regular Python library, it needs to be imported before use. The root <code class="docutils literal notranslate"><span class="pre">amaranth</span></code> module, called <em>the prelude</em>, is carefully curated to export a small amount of the most essential names, useful in nearly every design. In source files dedicated to Amaranth code, it is a good practice to use a <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#tut-pkg-import-star" title="(in Python v3.10)"><span class="xref std std-ref">glob import</span></a> for readability:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">amaranth</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>However, if a source file uses nMigen together with other libraries, or if glob imports are frowned upon, it is conventional to use a short alias instead:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nmigen</span> <span class="k">as</span> <span class="nn">nm</span>
+<p>However, if a source file uses Amaranth together with other libraries, or if glob imports are frowned upon, it is conventional to use a short alias instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">amaranth</span> <span class="k">as</span> <span class="nn">am</span>
 </pre></div>
 </div>
 <p>All of the examples below assume that a glob import is used.</p>
 </div>
 <div class="section" id="values">
 <span id="lang-values"></span><h2>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
-<p>The basic building block of the nMigen language is a <em>value</em>, which is a term for a binary number that is computed or stored anywhere in the design. Each value has a <em>width</em>—the amount of bits used to represent the value—and a <em>signedness</em>—the interpretation of the value by arithmetic operations—collectively called its <em>shape</em>. Signed values always use <a class="reference external" href="https://en.wikipedia.org/wiki/Two's_complement">two’s complement</a> representation.</p>
+<p>The basic building block of the Amaranth language is a <em>value</em>, which is a term for a binary number that is computed or stored anywhere in the design. Each value has a <em>width</em>—the amount of bits used to represent the value—and a <em>signedness</em>—the interpretation of the value by arithmetic operations—collectively called its <em>shape</em>. Signed values always use <a class="reference external" href="https://en.wikipedia.org/wiki/Two's_complement">two’s complement</a> representation.</p>
 </div>
 <div class="section" id="constants">
 <span id="lang-constants"></span><h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
-<p>The simplest nMigen value is a <em>constant</em>, representing a fixed number, and introduced using <code class="docutils literal notranslate"><span class="pre">Const(...)</span></code> or its short alias <code class="docutils literal notranslate"><span class="pre">C(...)</span></code>:</p>
+<p>The simplest Amaranth value is a <em>constant</em>, representing a fixed number, and introduced using <code class="docutils literal notranslate"><span class="pre">Const(...)</span></code> or its short alias <code class="docutils literal notranslate"><span class="pre">C(...)</span></code>:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ten</span> <span class="o">=</span> <span class="n">Const</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">minus_two</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The code above does not specify any shape for the constants. If the shape is omitted, nMigen uses unsigned shape for positive numbers and signed shape for negative numbers, with the width inferred from the smallest amount of bits necessary to represent the number. As a special case, in order to get the same inferred shape for <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code> is considered to be 1-bit unsigned.</p>
+<p>The code above does not specify any shape for the constants. If the shape is omitted, Amaranth uses unsigned shape for positive numbers and signed shape for negative numbers, with the width inferred from the smallest amount of bits necessary to represent the number. As a special case, in order to get the same inferred shape for <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code> is considered to be 1-bit unsigned.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ten</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
 <span class="go">unsigned(4)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">minus_two</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
@@ -374,7 +374,7 @@
 </div>
 <div class="section" id="value-casting">
 <span id="lang-valuecasting"></span><h2>Value casting<a class="headerlink" href="#value-casting" title="Permalink to this headline">¶</a></h2>
-<p>Like shapes, values may be <em>cast</em> from other objects, which are called <em>value-castable</em>. Casting allows objects that are not provided by nMigen, such as integers or enumeration members, to be used in nMigen expressions directly.</p>
+<p>Like shapes, values may be <em>cast</em> from other objects, which are called <em>value-castable</em>. Casting allows objects that are not provided by Amaranth, such as integers or enumeration members, to be used in Amaranth expressions directly.</p>
 <p>Casting to a value can be done explicitly with <code class="docutils literal notranslate"><span class="pre">Value.cast</span></code>, but is usually implicit, since value-castable objects are accepted anywhere values are.</p>
 <div class="section" id="values-from-integers">
 <h3>Values from integers<a class="headerlink" href="#values-from-integers" title="Permalink to this headline">¶</a></h3>
@@ -458,7 +458,7 @@
 </div>
 <div class="section" id="operators">
 <span id="lang-operators"></span><h2>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
-<p>To describe computations, nMigen values can be combined with each other or with <a class="reference internal" href="#lang-valuecasting"><span class="std std-ref">value-castable</span></a> objects using a rich array of arithmetic, bitwise, logical, bit sequence, and other <em>operators</em> to form <em>expressions</em>, which are themselves values.</p>
+<p>To describe computations, Amaranth values can be combined with each other or with <a class="reference internal" href="#lang-valuecasting"><span class="std std-ref">value-castable</span></a> objects using a rich array of arithmetic, bitwise, logical, bit sequence, and other <em>operators</em> to form <em>expressions</em>, which are themselves values.</p>
 <div class="section" id="performing-or-describing-computations">
 <span id="lang-abstractexpr"></span><h3>Performing or describing computations?<a class="headerlink" href="#performing-or-describing-computations" title="Permalink to this headline">¶</a></h3>
 <p>Code written in the Python language <em>performs</em> computations on concrete objects, like integers, with the goal of calculating a concrete result:</p>
@@ -467,21 +467,21 @@
 <span class="go">6</span>
 </pre></div>
 </div>
-<p>In contrast, code written in the nMigen language <em>describes</em> computations on abstract objects, like <a class="reference internal" href="#lang-signals"><span class="std std-ref">signals</span></a>, with the goal of generating a hardware <em>circuit</em> that can be simulated, synthesized, and so on. nMigen expressions are ordinary Python objects that represent parts of this circuit:</p>
+<p>In contrast, code written in the Amaranth language <em>describes</em> computations on abstract objects, like <a class="reference internal" href="#lang-signals"><span class="std std-ref">signals</span></a>, with the goal of generating a hardware <em>circuit</em> that can be simulated, synthesized, and so on. Amaranth expressions are ordinary Python objects that represent parts of this circuit:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="go">(+ (sig a) (const 1&#39;d1))</span>
 </pre></div>
 </div>
-<p>Although the syntax is similar, it is important to remember that nMigen values exist on a higher level of abstraction than Python values. For example, expressions that include nMigen values cannot be used in Python control flow structures:</p>
+<p>Although the syntax is similar, it is important to remember that Amaranth values exist on a higher level of abstraction than Python values. For example, expressions that include Amaranth values cannot be used in Python control flow structures:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Zero!&quot;</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   <span class="c">...</span>
-<span class="gr">TypeError</span>: <span class="n">Attempted to convert nMigen value to Python boolean</span>
+<span class="gr">TypeError</span>: <span class="n">Attempted to convert Amaranth value to Python boolean</span>
 </pre></div>
 </div>
-<p>Because the value of <code class="docutils literal notranslate"><span class="pre">a</span></code>, and therefore <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">0</span></code>, is not known at the time when the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is executed, there is no way to decide whether the body of the statement should be executed—in fact, if the design is synthesized, by the time <code class="docutils literal notranslate"><span class="pre">a</span></code> has any concrete value, the Python program has long finished! To solve this problem, nMigen provides its own <a class="reference internal" href="#lang-control"><span class="std std-ref">control structures</span></a> that, also, manipulate circuits.</p>
+<p>Because the value of <code class="docutils literal notranslate"><span class="pre">a</span></code>, and therefore <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">0</span></code>, is not known at the time when the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is executed, there is no way to decide whether the body of the statement should be executed—in fact, if the design is synthesized, by the time <code class="docutils literal notranslate"><span class="pre">a</span></code> has any concrete value, the Python program has long finished! To solve this problem, Amaranth provides its own <a class="reference internal" href="#lang-control"><span class="std std-ref">control structures</span></a> that, also, manipulate circuits.</p>
 </div>
 <div class="section" id="width-extension">
 <span id="lang-widthext"></span><h3>Width extension<a class="headerlink" href="#width-extension" title="Permalink to this headline">¶</a></h3>
@@ -489,14 +489,14 @@
 </div>
 <div class="section" id="arithmetic-operators">
 <span id="lang-arithops"></span><h3>Arithmetic operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline">¶</a></h3>
-<p>Most arithmetic operations on integers provided by Python can be used on nMigen values, too.</p>
-<p>Although Python integers have unlimited precision and nMigen values are represented with a <a class="reference internal" href="#lang-values"><span class="std std-ref">finite amount of bits</span></a>, arithmetics on nMigen values never overflows because the width of the arithmetic expression is always sufficient to represent all possible results.</p>
+<p>Most arithmetic operations on integers provided by Python can be used on Amaranth values, too.</p>
+<p>Although Python integers have unlimited precision and Amaranth values are represented with a <a class="reference internal" href="#lang-values"><span class="std std-ref">finite amount of bits</span></a>, arithmetics on Amaranth values never overflows because the width of the arithmetic expression is always sufficient to represent all possible results.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span> <span class="c1"># needs to represent 1 to 256</span>
 <span class="go">unsigned(9)</span>
 </pre></div>
 </div>
-<p>Similarly, although Python integers are always signed and nMigen values can be either <a class="reference internal" href="#lang-values"><span class="std std-ref">signed or unsigned</span></a>, if any of the operands of an nMigen arithmetic expression is signed, the expression itself is also signed, matching the behavior of Python.</p>
+<p>Similarly, although Python integers are always signed and Amaranth values can be either <a class="reference internal" href="#lang-values"><span class="std std-ref">signed or unsigned</span></a>, if any of the operands of an Amaranth arithmetic expression is signed, the expression itself is also signed, matching the behavior of Python.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">unsigned</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">signed</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span> <span class="c1"># needs to represent -128 to 382</span>
@@ -504,7 +504,7 @@
 </pre></div>
 </div>
 <p>While arithmetic computations never result in an overflow, <a class="reference internal" href="#lang-assigns"><span class="std std-ref">assigning</span></a> their results to signals may truncate the most significant bits.</p>
-<p>The following table lists the arithmetic operations provided by nMigen:</p>
+<p>The following table lists the arithmetic operations provided by Amaranth:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -550,15 +550,15 @@
 </table>
 <dl class="footnote brackets">
 <dt class="label" id="opa1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
-<dd><p>Divisor must be unsigned; this is an nMigen limitation that may be lifted in the future.</p>
+<dd><p>Divisor must be unsigned; this is an Amaranth limitation that may be lifted in the future.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="comparison-operators">
 <span id="lang-cmpops"></span><h3>Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this headline">¶</a></h3>
-<p>All comparison operations on integers provided by Python can be used on nMigen values. However, due to a limitation of Python, chained comparisons (e.g. <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span> <span class="pre">&lt;</span> <span class="pre">c</span></code>) cannot be used.</p>
+<p>All comparison operations on integers provided by Python can be used on Amaranth values. However, due to a limitation of Python, chained comparisons (e.g. <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span> <span class="pre">&lt;</span> <span class="pre">c</span></code>) cannot be used.</p>
 <p>Similar to arithmetic operations, if any operand of a comparison expression is signed, a signed comparison is performed. The result of a comparison is a 1-bit unsigned value.</p>
-<p>The following table lists the comparison operations provided by nMigen:</p>
+<p>The following table lists the comparison operations provided by Amaranth:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -593,10 +593,10 @@
 </div>
 <div class="section" id="bitwise-shift-and-rotate-operators">
 <span id="lang-bitops"></span><h3>Bitwise, shift, and rotate operators<a class="headerlink" href="#bitwise-shift-and-rotate-operators" title="Permalink to this headline">¶</a></h3>
-<p>All bitwise and shift operations on integers provided by Python can be used on nMigen values as well.</p>
+<p>All bitwise and shift operations on integers provided by Python can be used on Amaranth values as well.</p>
 <p>Similar to arithmetic operations, if any operand of a bitwise expression is signed, the expression itself is signed as well. A shift expression is signed if the shifted value is signed. A rotate expression is always unsigned.</p>
 <p>Rotate operations with variable rotate amounts cannot be efficiently synthesized for non-power-of-2 widths of the rotated value. Because of that, the rotate operations are only provided for constant rotate amounts, specified as Python <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>s.</p>
-<p>The following table lists the bitwise and shift operations provided by nMigen:</p>
+<p>The following table lists the bitwise and shift operations provided by Amaranth:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -669,19 +669,19 @@
 </dl>
 <div class="admonition note" id="lang-hugeshift">
 <p class="admonition-title">Note</p>
-<p>Because nMigen ensures that the width of a variable left shift expression is wide enough to represent any possible result, variable left shift by a wide amount produces exponentially wider intermediate values, stressing the synthesis tools:</p>
+<p>Because Amaranth ensures that the width of a variable left shift expression is wide enough to represent any possible result, variable left shift by a wide amount produces exponentially wider intermediate values, stressing the synthesis tools:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
 <span class="go">unsigned(4294967296)</span>
 </pre></div>
 </div>
-<p>Although nMigen will detect and reject expressions wide enough to break other tools, it is a good practice to explicitly limit the width of a shift amount in a variable left shift.</p>
+<p>Although Amaranth will detect and reject expressions wide enough to break other tools, it is a good practice to explicitly limit the width of a shift amount in a variable left shift.</p>
 </div>
 </div>
 <div class="section" id="reduction-operators">
 <span id="lang-reduceops"></span><h3>Reduction operators<a class="headerlink" href="#reduction-operators" title="Permalink to this headline">¶</a></h3>
 <p>Bitwise reduction operations on integers are not provided by Python, but are very useful for hardware. They are similar to bitwise operations applied “sideways”; for example, if bitwise AND is a binary operator that applies AND to each pair of bits between its two operands, then reduction AND is an unary operator that applies AND to all of the bits in its sole operand.</p>
 <p>The result of a reduction is a 1-bit unsigned value.</p>
-<p>The following table lists the reduction operations provided by nMigen:</p>
+<p>The following table lists the reduction operations provided by Amaranth:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
@@ -724,8 +724,8 @@
 </div>
 <div class="section" id="logical-operators">
 <span id="lang-logicops"></span><h3>Logical operators<a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h3>
-<p>Unlike the arithmetic or bitwise operators, it is not possible to change the behavior of the Python logical operators <code class="docutils literal notranslate"><span class="pre">not</span></code>, <code class="docutils literal notranslate"><span class="pre">and</span></code>, and <code class="docutils literal notranslate"><span class="pre">or</span></code>. Due to that, logical expressions in nMigen are written using bitwise operations on boolean (1-bit unsigned) values, with explicit boolean conversions added where necessary.</p>
-<p>The following table lists the Python logical expressions and their nMigen equivalents:</p>
+<p>Unlike the arithmetic or bitwise operators, it is not possible to change the behavior of the Python logical operators <code class="docutils literal notranslate"><span class="pre">not</span></code>, <code class="docutils literal notranslate"><span class="pre">and</span></code>, and <code class="docutils literal notranslate"><span class="pre">or</span></code>. Due to that, logical expressions in Amaranth are written using bitwise operations on boolean (1-bit unsigned) values, with explicit boolean conversions added where necessary.</p>
+<p>The following table lists the Python logical expressions and their Amaranth equivalents:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -733,7 +733,7 @@
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Python expression</p></th>
-<th class="head"><p>nMigen expression (any operands)</p></th>
+<th class="head"><p>Amaranth expression (any operands)</p></th>
 </tr>
 </thead>
 <tbody>
@@ -751,12 +751,12 @@
 <p>When the operands are known to be boolean values, such as comparisons, reductions, or boolean signals, the <code class="docutils literal notranslate"><span class="pre">.bool()</span></code> conversion may be omitted for clarity:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
+<col style="width: 31%" />
+<col style="width: 69%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Python expression</p></th>
-<th class="head"><p>nMigen expression (boolean operands)</p></th>
+<th class="head"><p>Amaranth expression (boolean operands)</p></th>
 </tr>
 </thead>
 <tbody>
@@ -773,8 +773,8 @@
 </table>
 <div class="admonition warning" id="lang-logicprecedence">
 <p class="admonition-title">Warning</p>
-<p>Because of Python <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#operator-summary" title="(in Python v3.10)"><span class="xref std std-ref">operator precedence</span></a>, logical operators bind less tightly than comparison operators whereas bitwise operators bind more tightly than comparison operators. As a result, all logical expressions in nMigen <strong>must</strong> have parenthesized operands.</p>
-<p>Omitting parentheses around operands in an nMigen a logical expression is likely to introduce a subtle bug:</p>
+<p>Because of Python <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#operator-summary" title="(in Python v3.10)"><span class="xref std std-ref">operator precedence</span></a>, logical operators bind less tightly than comparison operators whereas bitwise operators bind more tightly than comparison operators. As a result, all logical expressions in Amaranth <strong>must</strong> have parenthesized operands.</p>
+<p>Omitting parentheses around operands in an Amaranth a logical expression is likely to introduce a subtle bug:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">en</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">addr</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">en</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">addr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># correct</span>
@@ -786,14 +786,14 @@
 </div>
 <div class="admonition warning" id="lang-negatebool">
 <p class="admonition-title">Warning</p>
-<p>When applied to nMigen boolean values, the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator computes negation, and when applied to Python boolean values, the <code class="docutils literal notranslate"><span class="pre">not</span></code> operator also computes negation. However, the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator applied to Python boolean values produces an unexpected result:</p>
+<p>When applied to Amaranth boolean values, the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator computes negation, and when applied to Python boolean values, the <code class="docutils literal notranslate"><span class="pre">not</span></code> operator also computes negation. However, the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator applied to Python boolean values produces an unexpected result:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">~</span><span class="kc">False</span>
 <span class="go">-1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="o">~</span><span class="kc">True</span>
 <span class="go">-2</span>
 </pre></div>
 </div>
-<p>Because of this, Python booleans used in nMigen logical expressions <strong>must</strong> be negated with the <code class="docutils literal notranslate"><span class="pre">not</span></code> operator, not the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator. Negating a Python boolean with the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator in an nMigen logical expression is likely to introduce a subtle bug:</p>
+<p>Because of this, Python booleans used in Amaranth logical expressions <strong>must</strong> be negated with the <code class="docutils literal notranslate"><span class="pre">not</span></code> operator, not the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator. Negating a Python boolean with the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator in an Amaranth logical expression is likely to introduce a subtle bug:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stb</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">use_stb</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="ow">not</span> <span class="n">use_stb</span><span class="p">)</span> <span class="o">|</span> <span class="n">stb</span> <span class="c1"># correct</span>
@@ -802,15 +802,15 @@
 <span class="go">(| (const 2&#39;sd-2) (sig stb))</span>
 </pre></div>
 </div>
-<p>nMigen automatically detects some cases of misuse of <code class="docutils literal notranslate"><span class="pre">~</span></code> and emits a detailed diagnostic message.</p>
+<p>Amaranth automatically detects some cases of misuse of <code class="docutils literal notranslate"><span class="pre">~</span></code> and emits a detailed diagnostic message.</p>
 </div>
 </div>
 <div class="section" id="bit-sequence-operators">
 <span id="lang-seqops"></span><h3>Bit sequence operators<a class="headerlink" href="#bit-sequence-operators" title="Permalink to this headline">¶</a></h3>
-<p>Apart from acting as numbers, nMigen values can also be treated as bit <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typesseq" title="(in Python v3.10)"><span class="xref std std-ref">sequences</span></a>, supporting slicing, concatenation, replication, and other sequence operations. Since some of the operators Python defines for sequences clash with the operators it defines for numbers, nMigen gives these operators a different name. Except for the names, nMigen values follow Python sequence semantics, with the least significant bit at index 0.</p>
-<p>Because every nMigen value has a single fixed width, bit slicing and replication operations require the subscripts and count to be constant, specified as Python <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>s. It is often useful to slice a value with a constant width and variable offset, but this cannot be expressed with the Python slice notation. To solve this problem, nMigen provides additional <em>part select</em> operations with the necessary semantics.</p>
+<p>Apart from acting as numbers, Amaranth values can also be treated as bit <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typesseq" title="(in Python v3.10)"><span class="xref std std-ref">sequences</span></a>, supporting slicing, concatenation, replication, and other sequence operations. Since some of the operators Python defines for sequences clash with the operators it defines for numbers, Amaranth gives these operators a different name. Except for the names, Amaranth values follow Python sequence semantics, with the least significant bit at index 0.</p>
+<p>Because every Amaranth value has a single fixed width, bit slicing and replication operations require the subscripts and count to be constant, specified as Python <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>s. It is often useful to slice a value with a constant width and variable offset, but this cannot be expressed with the Python slice notation. To solve this problem, Amaranth provides additional <em>part select</em> operations with the necessary semantics.</p>
 <p>The result of any bit sequence operation is an unsigned value.</p>
-<p>The following table lists the bit sequence operations provided by nMigen:</p>
+<p>The following table lists the bit sequence operations provided by Amaranth:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 29%" />
@@ -856,7 +856,7 @@
 </table>
 <dl class="footnote brackets">
 <dt class="label" id="ops1"><span class="brackets"><a class="fn-backref" href="#id13">7</a></span></dt>
-<dd><p>Words “length” and “width” have the same meaning when talking about nMigen values. Conventionally, “width” is used.</p>
+<dd><p>Words “length” and “width” have the same meaning when talking about Amaranth values. Conventionally, “width” is used.</p>
 </dd>
 <dt class="label" id="ops2"><span class="brackets"><a class="fn-backref" href="#id14">8</a></span></dt>
 <dd><p>All variations of the Python slice notation are supported, including “extended slicing”. E.g. all of <code class="docutils literal notranslate"><span class="pre">a[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">a[1:9]</span></code>, <code class="docutils literal notranslate"><span class="pre">a[2:]</span></code>, <code class="docutils literal notranslate"><span class="pre">a[:-2]</span></code>, <code class="docutils literal notranslate"><span class="pre">a[::-1]</span></code>, <code class="docutils literal notranslate"><span class="pre">a[0:8:2]</span></code> select bits in the same way as other Python sequence types select their elements.</p>
@@ -865,14 +865,14 @@
 <dd><p>In the concatenated value, <code class="docutils literal notranslate"><span class="pre">a</span></code> occupies the least significant bits, and <code class="docutils literal notranslate"><span class="pre">b</span></code> the most significant bits.</p>
 </dd>
 </dl>
-<p>For the operators introduced by nMigen, the following table explains them in terms of Python code operating on tuples of bits rather than nMigen values:</p>
+<p>For the operators introduced by Amaranth, the following table explains them in terms of Python code operating on tuples of bits rather than Amaranth values:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 51%" />
 <col style="width: 49%" />
+<col style="width: 51%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>nMigen operation</p></th>
+<tr class="row-odd"><th class="head"><p>Amaranth operation</p></th>
 <th class="head"><p>Equivalent Python code</p></th>
 </tr>
 </thead>
@@ -898,7 +898,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Could nMigen have used a different indexing or iteration order for values? Yes, but it would be necessary to either place the most significant bit at index 0, or deliberately break the Python sequence type interface. Both of these options would cause more issues than using different iteration orders for numeric and sequence operations.</p>
+<p>Could Amaranth have used a different indexing or iteration order for values? Yes, but it would be necessary to either place the most significant bit at index 0, or deliberately break the Python sequence type interface. Both of these options would cause more issues than using different iteration orders for numeric and sequence operations.</p>
 </div>
 </div>
 <div class="section" id="conversion-operators">
@@ -912,8 +912,8 @@
 </div>
 <div class="section" id="modules">
 <span id="lang-modules"></span><h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
-<p>A <em>module</em> is a unit of the nMigen design hierarchy: the smallest collection of logic that can be independently simulated, synthesized, or otherwise processed. Modules associate signals with <a class="reference internal" href="#lang-domains"><span class="std std-ref">control domains</span></a>, provide <a class="reference internal" href="#lang-control"><span class="std std-ref">control structures</span></a>, manage clock domains, and aggregate submodules.</p>
-<p>Every nMigen design starts with a fresh module:</p>
+<p>A <em>module</em> is a unit of the Amaranth design hierarchy: the smallest collection of logic that can be independently simulated, synthesized, or otherwise processed. Modules associate signals with <a class="reference internal" href="#lang-domains"><span class="std std-ref">control domains</span></a>, provide <a class="reference internal" href="#lang-control"><span class="std std-ref">control structures</span></a>, manage clock domains, and aggregate submodules.</p>
+<p>Every Amaranth design starts with a fresh module:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">Module</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -932,7 +932,7 @@
 <span class="go">(eq (sig s) (const 1&#39;d1))</span>
 </pre></div>
 </div>
-<p>Similar to <a class="reference internal" href="#lang-abstractexpr"><span class="std std-ref">how nMigen operators work</span></a>, an nMigen assignment is an ordinary Python object used to describe a part of a circuit. An assignment does not have any effect on the signal it changes until it is added to a control domain in a module. Once added, it introduces logic into the circuit generated from that module.</p>
+<p>Similar to <a class="reference internal" href="#lang-abstractexpr"><span class="std std-ref">how Amaranth operators work</span></a>, an Amaranth assignment is an ordinary Python object used to describe a part of a circuit. An assignment does not have any effect on the signal it changes until it is added to a control domain in a module. Once added, it introduces logic into the circuit generated from that module.</p>
 </div>
 <div class="section" id="assignment-targets">
 <span id="lang-assignlhs"></span><h3>Assignment targets<a class="headerlink" href="#assignment-targets" title="Permalink to this headline">¶</a></h3>
@@ -974,12 +974,12 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="n">d</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   <span class="c">...</span>
-<span class="gr">nmigen.hdl.dsl.SyntaxError</span>: <span class="n">Driver-driver conflict: trying to drive (sig d) from d.sync, but it is already driven from d.comb</span>
+<span class="gr">amaranth.hdl.dsl.SyntaxError</span>: <span class="n">Driver-driver conflict: trying to drive (sig d) from d.sync, but it is already driven from d.comb</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Clearly, nMigen code that drives a single bit of a signal from two different domains does not describe a meaningful circuit. However, driving two different bits of a signal from two different domains does not inherently cause such a conflict. Would nMigen accept the following code?</p>
+<p>Clearly, Amaranth code that drives a single bit of a signal from two different domains does not describe a meaningful circuit. However, driving two different bits of a signal from two different domains does not inherently cause such a conflict. Would Amaranth accept the following code?</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">comb</span> <span class="o">+=</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1020,7 +1020,7 @@
 </div>
 <div class="section" id="control-structures">
 <span id="lang-control"></span><h3>Control structures<a class="headerlink" href="#control-structures" title="Permalink to this headline">¶</a></h3>
-<p>Although it is possible to write any decision tree as a combination of <a class="reference internal" href="#lang-assigns"><span class="std std-ref">assignments</span></a> and <a class="reference internal" href="#lang-muxop"><span class="std std-ref">choice expressions</span></a>, nMigen provides <em>control structures</em> tailored for this task: If, Switch, and FSM. The syntax of all control structures is based on <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#context-managers" title="(in Python v3.10)"><span class="xref std std-ref">context managers</span></a> and uses <code class="docutils literal notranslate"><span class="pre">with</span></code> blocks, for example:</p>
+<p>Although it is possible to write any decision tree as a combination of <a class="reference internal" href="#lang-assigns"><span class="std std-ref">assignments</span></a> and <a class="reference internal" href="#lang-muxop"><span class="std std-ref">choice expressions</span></a>, Amaranth provides <em>control structures</em> tailored for this task: If, Switch, and FSM. The syntax of all control structures is based on <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#context-managers" title="(in Python v3.10)"><span class="xref std std-ref">context managers</span></a> and uses <code class="docutils literal notranslate"><span class="pre">with</span></code> blocks, for example:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
     <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -1028,12 +1028,12 @@
     <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">timer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>While some nMigen control structures are superficially similar to imperative control flow statements (such as Python’s <code class="docutils literal notranslate"><span class="pre">if</span></code>), their function—together with <a class="reference internal" href="#lang-abstractexpr"><span class="std std-ref">expressions</span></a> and <a class="reference internal" href="#lang-assigns"><span class="std std-ref">assignments</span></a>—is to describe circuits. The code above is equivalent to:</p>
+<p>While some Amaranth control structures are superficially similar to imperative control flow statements (such as Python’s <code class="docutils literal notranslate"><span class="pre">if</span></code>), their function—together with <a class="reference internal" href="#lang-abstractexpr"><span class="std std-ref">expressions</span></a> and <a class="reference internal" href="#lang-assigns"><span class="std std-ref">assignments</span></a>—is to describe circuits. The code above is equivalent to:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">Mux</span><span class="p">(</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">timer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Because all branches of a decision tree affect the generated circuit, all of the Python code inside nMigen control structures is always evaluated in the order in which it appears in the program. This can be observed through Python code with side effects, such as <code class="docutils literal notranslate"><span class="pre">print()</span></code>:</p>
+<p>Because all branches of a decision tree affect the generated circuit, all of the Python code inside Amaranth control structures is always evaluated in the order in which it appears in the program. This can be observed through Python code with side effects, such as <code class="docutils literal notranslate"><span class="pre">print()</span></code>:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">m</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">timer</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inside `If`&quot;</span><span class="p">)</span>
@@ -1050,7 +1050,7 @@ inside `Else`
 </div>
 <div class="section" id="active-and-inactive-assignments">
 <span id="lang-active"></span><h3>Active and inactive assignments<a class="headerlink" href="#active-and-inactive-assignments" title="Permalink to this headline">¶</a></h3>
-<p>An assignment added inside an nMigen control structure, i.e. <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">m.&lt;...&gt;:</span></code> block, is <em>active</em> if the condition of the control structure is satisfied, and <em>inactive</em> otherwise. For any given set of conditions, the final value of every signal assigned in a module is the same as if the inactive assignments were removed and the active assignments were performed unconditionally, taking into account the <a class="reference internal" href="#lang-assignorder"><span class="std std-ref">assignment order</span></a>.</p>
+<p>An assignment added inside an Amaranth control structure, i.e. <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">m.&lt;...&gt;:</span></code> block, is <em>active</em> if the condition of the control structure is satisfied, and <em>inactive</em> otherwise. For any given set of conditions, the final value of every signal assigned in a module is the same as if the inactive assignments were removed and the active assignments were performed unconditionally, taking into account the <a class="reference internal" href="#lang-assignorder"><span class="std std-ref">assignment order</span></a>.</p>
 <p>For example, there are two possible cases in the circuit generated from the following code:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">sync</span> <span class="o">+=</span> <span class="n">timer</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">timer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -1087,10 +1087,10 @@ inside `Else`
 </pre></div>
 </div>
 <p>Whenever the signals <code class="docutils literal notranslate"><span class="pre">en</span></code> or <code class="docutils literal notranslate"><span class="pre">b</span></code> change, the signal <code class="docutils literal notranslate"><span class="pre">a</span></code> changes as well. If <code class="docutils literal notranslate"><span class="pre">en</span></code> is false, the final value of <code class="docutils literal notranslate"><span class="pre">a</span></code> is its initial value, <code class="docutils literal notranslate"><span class="pre">1</span></code>. If <code class="docutils literal notranslate"><span class="pre">en</span></code> is true, the final value of <code class="docutils literal notranslate"><span class="pre">a</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">+</span> <span class="pre">1</span></code>.</p>
-<p>A combinatorial signal that is computed directly or indirectly based on its own value is a part of a <em>combinatorial feedback loop</em>, sometimes shortened to just <em>feedback loop</em>. Combinatorial feedback loops can be stable (i.e. implement a constant driver or a transparent latch), or unstable (i.e. implement a ring oscillator). nMigen prohibits using assignments to describe any kind of a combinatorial feedback loop, including transparent latches.</p>
+<p>A combinatorial signal that is computed directly or indirectly based on its own value is a part of a <em>combinatorial feedback loop</em>, sometimes shortened to just <em>feedback loop</em>. Combinatorial feedback loops can be stable (i.e. implement a constant driver or a transparent latch), or unstable (i.e. implement a ring oscillator). Amaranth prohibits using assignments to describe any kind of a combinatorial feedback loop, including transparent latches.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The current version of nMigen does not detect combinatorial feedback loops, but processes the design under the assumption that there aren’t any. If the design does in fact contain a combinatorial feedback loop, it will likely be <strong>silently miscompiled</strong>, though some cases will be detected during synthesis or place &amp; route.</p>
+<p>The current version of Amaranth does not detect combinatorial feedback loops, but processes the design under the assumption that there aren’t any. If the design does in fact contain a combinatorial feedback loop, it will likely be <strong>silently miscompiled</strong>, though some cases will be detected during synthesis or place &amp; route.</p>
 <p>This hazard will be eliminated in the future.</p>
 </div>
 <div class="admonition note">
@@ -1118,7 +1118,7 @@ inside `Else`
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, nMigen developers.
+        &#169; Copyright 2020—2021, Amaranth HDL developers.
 
     </p>
   </div>

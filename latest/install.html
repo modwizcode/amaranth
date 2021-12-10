@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation &mdash; nMigen toolchain 0.3.dev275 documentation</title>
+  <title>Installation &mdash; Amaranth HDL toolchain 0.3.dev276 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
           
 
           
-            <a href="cover.html" class="icon icon-home"> nMigen toolchain
+            <a href="cover.html" class="icon icon-home"> Amaranth HDL toolchain
           
 
           
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.3.dev275+g0b28a97
+                0.3.dev276+g909a3b8
               </div>
             
           
@@ -100,7 +100,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#system-requirements">System requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installing-prerequisites">Installing prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installing-nmigen">Installing nMigen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-amaranth">Installing Amaranth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#latest-release">Latest release</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#development-snapshot">Development snapshot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#editable-development-snapshot">Editable development snapshot</a></li>
@@ -114,7 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="lang.html">Language guide</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://nmigen.info/nmigen-boards/latest/">Board definitions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://amaranth-lang.org/amaranth-boards/latest/">Board definitions</a></li>
 </ul>
 
             
@@ -130,7 +130,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="cover.html">nMigen toolchain</a>
+          <a href="cover.html">Amaranth HDL toolchain</a>
         
       </nav>
 
@@ -188,10 +188,10 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="system-requirements">
 <h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
-<p>nMigen requires Python 3.6; it works on <a class="reference external" href="https://www.python.org/">CPython</a> 3.6 (or newer), and works faster on <a class="reference external" href="https://www.pypy.org/">PyPy3.6</a> 7.2 (or newer).</p>
-<p>For most workflows, nMigen requires <a class="reference external" href="http://www.clifford.at/yosys/">Yosys</a> 0.9 (or newer). A compatible version of Yosys is distributed via <a class="reference external" href="https://pypi.org/">PyPI</a> for most popular platforms.</p>
-<p>Simulating nMigen code requires no additional software. However, a waveform viewer like <a class="reference external" href="http://gtkwave.sourceforge.net/">GTKWave</a> is invaluable for debugging.</p>
-<p>Synthesizing, placing and routing an nMigen design for an FPGA requires the FPGA family specific toolchain.</p>
+<p>Amaranth HDL requires Python 3.6; it works on <a class="reference external" href="https://www.python.org/">CPython</a> 3.6 (or newer), and works faster on <a class="reference external" href="https://www.pypy.org/">PyPy3.6</a> 7.2 (or newer).</p>
+<p>For most workflows, Amaranth requires <a class="reference external" href="https://yosyshq.net/yosys/">Yosys</a> 0.9 (or newer). A compatible version of Yosys is distributed via <a class="reference external" href="https://pypi.org/">PyPI</a> for most popular platforms.</p>
+<p>Simulating Amaranth code requires no additional software. However, a waveform viewer like <a class="reference external" href="http://gtkwave.sourceforge.net/">GTKWave</a> is invaluable for debugging.</p>
+<p>Synthesizing, placing and routing an Amaranth design for an FPGA requires the FPGA family specific toolchain.</p>
 </div>
 <div class="section" id="installing-prerequisites">
 <span id="install-deps"></span><h2>Installing prerequisites<a class="headerlink" href="#installing-prerequisites" title="Permalink to this headline">¶</a></h2>
@@ -235,41 +235,41 @@
 </div>
 </div>
 </div>
-<div class="section" id="installing-nmigen">
-<span id="install"></span><h2>Installing nMigen<a class="headerlink" href="#installing-nmigen" title="Permalink to this headline">¶</a></h2>
-<p>The latest release of nMigen should work well for most applications. A development snapshot—any commit from the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of nMigen—should be similarly reliable, but is likely to include experimental API changes that will be in flux until the next release. With that in mind, development snapshots can be used to try out new functionality or to avoid bugs fixed since the last release.</p>
+<div class="section" id="installing-amaranth">
+<span id="install"></span><h2>Installing Amaranth<a class="headerlink" href="#installing-amaranth" title="Permalink to this headline">¶</a></h2>
+<p>The latest release of Amaranth should work well for most applications. A development snapshot—any commit from the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch of Amaranth—should be similarly reliable, but is likely to include experimental API changes that will be in flux until the next release. With that in mind, development snapshots can be used to try out new functionality or to avoid bugs fixed since the last release.</p>
 <div class="section" id="latest-release">
 <span id="install-release"></span><h3>Latest release<a class="headerlink" href="#latest-release" title="Permalink to this headline">¶</a></h3>
 <div class="platform-picker docutils container">
 <div class="platform-choice platform--windows platform-noaltname docutils container">
 <p class="platform-title">Windows</p>
-<p>To install the latest release of nMigen, run:</p>
-<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> pip install --upgrade nmigen[builtin-yosys]
+<p>To install the latest release of Amaranth, run:</p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> pip install --upgrade amaranth[builtin-yosys]
 </pre></div>
 </div>
 </div>
 <div class="platform-choice platform--macos platform-noaltname docutils container">
 <p class="platform-title">macOS</p>
-<p>To install the latest release of nMigen, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install --user --upgrade <span class="s1">&#39;nmigen[builtin-yosys]&#39;</span>
+<p>To install the latest release of Amaranth, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install --user --upgrade <span class="s1">&#39;amaranth[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="platform-choice platform--linux platform-noaltname docutils container">
 <p class="platform-title">Linux</p>
-<p>If you <strong>did not</strong> install Yosys manually in the <a class="reference internal" href="#install-deps"><span class="std std-ref">previous step</span></a>, to install the latest release of nMigen, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user --upgrade <span class="s1">&#39;nmigen[builtin-yosys]&#39;</span>
+<p>If you <strong>did not</strong> install Yosys manually in the <a class="reference internal" href="#install-deps"><span class="std std-ref">previous step</span></a>, to install the latest release of Amaranth, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user --upgrade <span class="s1">&#39;amaranth[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
 <p>If you <strong>did</strong> install Yosys manually in the previous step, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user --upgrade nmigen
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user --upgrade amaranth
 </pre></div>
 </div>
 </div>
 <div class="platform-choice platform--arch platform--linux docutils container">
 <p class="platform-title">Arch Linux</p>
-<p>To install the latest release of nMigen, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo pacman -S python-nmigen
+<p>To install the latest release of Amaranth, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo pacman -S python-amaranth
 </pre></div>
 </div>
 </div>
@@ -280,26 +280,26 @@
 <div class="platform-picker docutils container">
 <div class="platform-choice platform--windows platform-noaltname docutils container">
 <p class="platform-title">Windows</p>
-<p>To install the latest development snapshot of nMigen, run:</p>
-<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> pip install git+https://github.com/nmigen/nmigen.git#egg=nmigen[builtin-yosys]
+<p>To install the latest development snapshot of Amaranth, run:</p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> pip install git+https://github.com/amaranth-lang/amaranth.git#egg=amaranth[builtin-yosys]
 </pre></div>
 </div>
 </div>
 <div class="platform-choice platform--macos platform-noaltname docutils container">
 <p class="platform-title">macOS</p>
-<p>To install the latest development snapshot of nMigen, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install --user <span class="s1">&#39;git+https://github.com/nmigen/nmigen.git#egg=nmigen[builtin-yosys]&#39;</span>
+<p>To install the latest development snapshot of Amaranth, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install --user <span class="s1">&#39;git+https://github.com/amaranth-lang/amaranth.git#egg=amaranth[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="platform-choice platform--linux platform-noaltname docutils container">
 <p class="platform-title">Linux</p>
-<p>If you <strong>did not</strong> install Yosys manually in the <a class="reference internal" href="#install-deps"><span class="std std-ref">previous step</span></a>, to install the latest release of nMigen, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user <span class="s1">&#39;git+https://github.com/nmigen/nmigen.git#egg=nmigen[builtin-yosys]&#39;</span>
+<p>If you <strong>did not</strong> install Yosys manually in the <a class="reference internal" href="#install-deps"><span class="std std-ref">previous step</span></a>, to install the latest release of Amaranth, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user <span class="s1">&#39;git+https://github.com/amaranth-lang/amaranth.git#egg=amaranth[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
 <p>If you <strong>did</strong> install Yosys manually in the previous step, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user <span class="s1">&#39;git+https://github.com/nmigen/nmigen.git#egg=nmigen&#39;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip3 install --user <span class="s1">&#39;git+https://github.com/amaranth-lang/amaranth.git#egg=amaranth&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -310,52 +310,52 @@
 <div class="platform-picker docutils container">
 <div class="platform-choice platform--windows platform-noaltname docutils container">
 <p class="platform-title">Windows</p>
-<p>To install an editable development snapshot of nMigen for the first time, run:</p>
-<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> git clone https://github.com/nmigen/nmigen
-<span class="gp">&gt;</span> <span class="k">cd</span> nmigen
+<p>To install an editable development snapshot of Amaranth for the first time, run:</p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> git clone https://github.com/amaranth-lang/amaranth
+<span class="gp">&gt;</span> <span class="k">cd</span> amaranth
 <span class="gp">&gt;</span> pip install --editable .[builtin-yosys]
 </pre></div>
 </div>
-<p>Any changes made to the <code class="docutils literal notranslate"><span class="pre">nmigen</span></code> directory will immediately affect any code that uses nMigen. To update the snapshot, run:</p>
-<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> <span class="k">cd</span> nmigen
-<span class="gp">&gt;</span> git pull --ff-only origin master
+<p>Any changes made to the <code class="docutils literal notranslate"><span class="pre">amaranth</span></code> directory will immediately affect any code that uses Amaranth. To update the snapshot, run:</p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> <span class="k">cd</span> amaranth
+<span class="gp">&gt;</span> git pull --ff-only origin main
 <span class="gp">&gt;</span> pip install --editable .[builtin-yosys]
 </pre></div>
 </div>
-<p>Run the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.[builtin-yosys]</span></code> command each time the editable development snapshot is updated in case package dependencies have been added or changed. Otherwise, code using nMigen may misbehave or crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>.</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.[builtin-yosys]</span></code> command each time the editable development snapshot is updated in case package dependencies have been added or changed. Otherwise, code using Amaranth may misbehave or crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>.</p>
 </div>
 <div class="platform-choice platform--macos platform-noaltname docutils container">
 <p class="platform-title">macOS</p>
-<p>To install an editable development snapshot of nMigen for the first time, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone https://github.com/nmigen/nmigen
-<span class="gp">$ </span><span class="nb">cd</span> nmigen
+<p>To install an editable development snapshot of Amaranth for the first time, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone https://github.com/amaranth-lang/amaranth
+<span class="gp">$ </span><span class="nb">cd</span> amaranth
 <span class="gp">$ </span>pip install --user --editable <span class="s1">&#39;.[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
-<p>Any changes made to the <code class="docutils literal notranslate"><span class="pre">nmigen</span></code> directory will immediately affect any code that uses nMigen. To update the snapshot, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> nmigen
-<span class="gp">$ </span>git pull --ff-only origin master
+<p>Any changes made to the <code class="docutils literal notranslate"><span class="pre">amaranth</span></code> directory will immediately affect any code that uses Amaranth. To update the snapshot, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> amaranth
+<span class="gp">$ </span>git pull --ff-only origin main
 <span class="gp">$ </span>pip install --user --editable <span class="s1">&#39;.[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
-<p>Run the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.[builtin-yosys]</span></code> command each time the editable development snapshot is updated in case package dependencies have been added or changed. Otherwise, code using nMigen may misbehave or crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>.</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.[builtin-yosys]</span></code> command each time the editable development snapshot is updated in case package dependencies have been added or changed. Otherwise, code using Amaranth may misbehave or crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>.</p>
 </div>
 <div class="platform-choice platform--linux platform-noaltname docutils container">
 <p class="platform-title">Linux</p>
 <p>If you <strong>did</strong> install Yosys manually in the <a class="reference internal" href="#install-deps"><span class="std std-ref">previous step</span></a>, omit <code class="docutils literal notranslate"><span class="pre">[builtin-yosys]</span></code> from the following commands.</p>
-<p>To install an editable development snapshot of nMigen for the first time, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone https://github.com/nmigen/nmigen
-<span class="gp">$ </span><span class="nb">cd</span> nmigen
+<p>To install an editable development snapshot of Amaranth for the first time, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone https://github.com/amaranth-lang/amaranth
+<span class="gp">$ </span><span class="nb">cd</span> amaranth
 <span class="gp">$ </span>pip3 install --user --editable <span class="s1">&#39;.[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
-<p>Any changes made to the <code class="docutils literal notranslate"><span class="pre">nmigen</span></code> directory will immediately affect any code that uses nMigen. To update the snapshot, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> nmigen
-<span class="gp">$ </span>git pull --ff-only origin master
+<p>Any changes made to the <code class="docutils literal notranslate"><span class="pre">amaranth</span></code> directory will immediately affect any code that uses Amaranth. To update the snapshot, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> amaranth
+<span class="gp">$ </span>git pull --ff-only origin main
 <span class="gp">$ </span>pip3 install --user --editable <span class="s1">&#39;.[builtin-yosys]&#39;</span>
 </pre></div>
 </div>
-<p>Run the <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.[builtin-yosys]</span></code> command each time the editable development snapshot is updated in case package dependencies have been added or changed. Otherwise, code using nMigen may misbehave or crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>.</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.[builtin-yosys]</span></code> command each time the editable development snapshot is updated in case package dependencies have been added or changed. Otherwise, code using Amaranth may misbehave or crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>.</p>
 </div>
 </div>
 </div>
@@ -364,7 +364,7 @@
 <h2>Installing board definitions<a class="headerlink" href="#installing-board-definitions" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
-<p>Explain how to install <a class="reference external" href="https://github.com/nmigen/nmigen-boards">https://github.com/nmigen/nmigen-boards</a>.</p>
+<p>Explain how to install <a class="reference external" href="https://github.com/amaranth-lang/amaranth-boards">https://github.com/amaranth-lang/amaranth-boards</a>.</p>
 </div>
 </div>
 </div>
@@ -383,7 +383,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, nMigen developers.
+        &#169; Copyright 2020—2021, Amaranth HDL developers.
 
     </p>
   </div>
